@@ -21,9 +21,10 @@ def login_for_cookies(config):
         options.add_argument('-headless')
         driver = webdriver.Firefox(executable_path = config.firefox,service_args=service_args, firefox_options=options)
     if config.chrome:
-        options=webdriver.chrome.options.Options()
+        options = webdriver.chrome.options.Options()
         # options.add_argument('-headless')
-        driver = webdriver.Chrome(executable_path = config.chrome,service_args=service_args, chrome_options=options)
+        options.add_argument('--proxy-server={}'.format(config.socks))
+        driver = webdriver.Chrome(executable_path=config.chrome, options=options)
         
 
     driver.get(login_url)
